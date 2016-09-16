@@ -1,5 +1,7 @@
+#Imports
 import re
 
+#Regex for tokenisation
 emoticons = r"""
     (?:[<>]?
       [:;=8]
@@ -55,16 +57,18 @@ tweetRegex = (
     """
     )
 
+#Compiling regex
 wordRegex = re.compile(r"""(%s)""" % "|".join(tweetRegex), re.VERBOSE | re.I | re.UNICODE)
 
+#Opening corpus
 with open('tweets-en.txt', 'r') as myFile:
     data = myFile.read()
 result = data.split('RT ')
 
-sentences = ["OMG!!! This is purely awesome..... I love it!.. :D"]
-#for i in result:
-#    sentences.append(i.replace('\n', ' '))
-#sentences = filter(None, sentences)
+#Clean corpus
+for i in result:
+    sentences.append(i.replace('\n', ' '))
+sentences = filter(None, sentences)
 for s in sentences:
     print s
     print
